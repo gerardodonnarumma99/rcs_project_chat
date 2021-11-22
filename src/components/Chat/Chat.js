@@ -17,7 +17,7 @@ import {
     Avatar,
     ListItemAvatar
 } from '@mui/material'
-import { Menu as MenuIcon, ChevronRight as ChevronRightIcon } from '@mui/icons-material'
+import { Menu as MenuIcon, ChevronRight as ChevronRightIcon, Send } from '@mui/icons-material'
 import Drawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import Message from '../Message/Message'
@@ -213,7 +213,9 @@ const Chat = ({ userIsMe = {}, userDestination = {}, messages = [] }) => {
                         <TextField id="outlined-basic-email" label="Type Something" fullWidth />
                     </Grid>
                     <Grid xs={1} align="right">
-                        <Fab color="primary" aria-label="add"></Fab>
+                        <Fab color="primary" aria-label="add">
+                            <Send />
+                        </Fab>
                     </Grid>
                 </Grid>
             </Grid>
