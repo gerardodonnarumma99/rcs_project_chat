@@ -115,7 +115,7 @@ const ChatAppBar = ({ user = {}, usersGroup = [] }) => {
                         <Grid
                             container
                             direction="row" 
-                            style={{ padding: 5 }} >
+                            style={{ padding: 7 }} >
                             <Grid item xs={12} className={classes.avatarInfoHeader}>
                                 <Avatar 
                                     sx={{ width: 100, height: 100 }}
@@ -127,6 +127,7 @@ const ChatAppBar = ({ user = {}, usersGroup = [] }) => {
                                 <Typography>{user?.name ? user.name : ""}</Typography>
                             </Grid>
                             <Grid item xs={12}>
+                                <Divider />
                                 {usersGroup && Array.isArray(usersGroup) && usersGroup.length > 0 && 
                                     (<ListUsers users={usersGroup}/>)
                                 }

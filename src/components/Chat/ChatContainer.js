@@ -8,11 +8,15 @@ import moment from 'moment'
 
 const ChatContainer = () => {
     const [chats, setChats] = useRecoilState(chatsState)
+    const [chatList, setChatList] = useState([])
     const [messages, setMessages] = useState([]);
     const [userIsMe, setUserIsMe] = useState({});
     const [userDestination, setUserDestination] = useState({})
 
-    useEffect(() => getUserIsMe(), [chats])
+    useEffect(() => {
+        getUserIsMe()
+        setChatList(chats?.['users_and_groups'] ? chats['users_and_groups'] : [])
+    }, [chats])
 
     const getUserIsMe = () => {
         const user = chats?.['users_and_groups'] && chats['users_and_groups'].find((user) => user.is_me)
@@ -72,19 +76,38 @@ const ChatContainer = () => {
 
         return messagesSorted;
     }
+
+    const handleSearchUserList = (e) => {
+        const searchValue = e.target.value
+
+        if(!searchValue) {
+            return setChatList(chats?.['users_and_groups'] ? chats?.['users_and_groups'] : [])
+        }
+
+        if(chatList) {
+            const chatListFiltered = [...chatList].filter((user) => {
+                if(user?.name && user.name.toLowerCase().includes(searchValue.toLowerCase())) {
+                    return user
+                }
+            })
+            console.log('chatListFiltered', chatListFiltered)
+            setChatList(chatListFiltered)
+        }
+    }
     
     return (
         <Grid container component={Paper}>
             <Grid item xs={3}>
                 <ChatList
                     userIsMe={userIsMe}
-                    chatList={(chats?.['users_and_groups'] || [])} 
+                    chatList={(chatList || [])} 
                     handleChat={handleClickChat}
+                    handleSearchUserList={handleSearchUserList}
                 />
             </Grid>
             <Grid item xs={9}>
                 <Chat
-                    users={[...chats['users_and_groups']]}
+                    users={chats?.['users_and_groups'] || []}
                     userIsMe={userIsMe} 
                     userDestination={userDestination}
                     messages={messages}

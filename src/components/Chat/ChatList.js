@@ -10,7 +10,7 @@ import {
     Divider 
 } from '@mui/material'
 
-const ChatList = ({ userIsMe = {}, chatList = [], handleChat }) => {
+const ChatList = ({ userIsMe = {}, chatList = [], handleChat, handleSearchUserList }) => {
 
     const getItemIsMe = () => {
         if(userIsMe?.id) {
@@ -33,10 +33,10 @@ const ChatList = ({ userIsMe = {}, chatList = [], handleChat }) => {
             </List>
             <Divider />
             <Grid item xs={12} style={{padding: '10px'}}>
-                <TextField id="outlined-basic-email" label="Search" variant="outlined" fullWidth />
+                <TextField id="outlined-basic-email" label="Search" variant="outlined" onChange={handleSearchUserList} fullWidth />
             </Grid>
             <Divider />
-            <List>
+            <List style={{ maxHeight: '500px', overflow: 'auto' }}>
                 {chatList.map((user) => (
                     user && user.id && !user.is_me && 
                         (<ListItem button key={user.id} onClick={(e) => handleChat(e, user)}>
@@ -60,7 +60,8 @@ ChatList.propTypes = {
         is_me: PropTypes.bool
     }).isRequired,
     chatList: PropTypes.array,
-    handleChat: PropTypes.func.isRequired
+    handleChat: PropTypes.func.isRequired,
+    handleSearchUserList: PropTypes.func.isRequired
 };
 
 export default ChatList;

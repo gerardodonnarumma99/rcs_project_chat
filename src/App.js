@@ -1,7 +1,6 @@
 import { RecoilRoot } from 'recoil';
-import { ChatContainer } from './components/Chat';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ButtonUploadFile from './components/UploadFile/ButtonUploadFile';
+import Home from './pages/Home'
 
 const theme = createTheme({
   palette: {
@@ -43,8 +42,7 @@ function App() {
   return (
     <ThemeProvider theme={theme} >
       <RecoilRoot>
-        <ButtonUploadFile text="Upload Chat" />
-        <ChatContainer />
+        <Home />
       </RecoilRoot>
     </ThemeProvider>
   );
